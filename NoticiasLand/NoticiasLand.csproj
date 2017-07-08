@@ -152,10 +152,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707081403269_Database.cs" />
+    <Compile Include="Migrations\201707081403269_Database.Designer.cs">
+      <DependentUpon>201707081403269_Database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Categorias.cs" />
+    <Compile Include="Models\Fotos.cs" />
+    <Compile Include="Models\Logins.cs" />
+    <Compile Include="Models\Noticias.cs" />
+    <Compile Include="Models\NoticiasLandDB.cs" />
+    <Compile Include="Models\NoticiasViewModel.cs" />
+    <Compile Include="Models\Tags.cs" />
+    <Compile Include="Models\Utilizadores.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,10 +224,19 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Categorias\Apagar.cshtml" />
+    <Content Include="Views\Categorias\Criar.cshtml" />
+    <Content Include="Views\Categorias\Detalhes.cshtml" />
+    <Content Include="Views\Categorias\Editar.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\Tags\Apagar.cshtml" />
+    <Content Include="Views\Tags\Criar.cshtml" />
+    <Content Include="Views\Tags\Detalhes.cshtml" />
+    <Content Include="Views\Tags\Editar.cshtml" />
+    <Content Include="Views\Tags\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -222,6 +246,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707081403269_Database.resx">
+      <DependentUpon>201707081403269_Database.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

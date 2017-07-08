@@ -1,0 +1,39 @@
+﻿@model IEnumerable<NoticiasLand.Models.Categorias>
+
+@{
+    ViewBag.Title = "Categorias";
+}
+
+<h2>Categorias</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo", "Criar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UrlSlug)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UrlSlug)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.CategoriaID }) |
+            @Html.ActionLink("Detalhes", "Detalhes", new { id=item.CategoriaID }) |
+            @Html.ActionLink("Apagar", "Apagar", new { id=item.CategoriaID })
+        </td>
+    </tr>
+}
+
+</table>
