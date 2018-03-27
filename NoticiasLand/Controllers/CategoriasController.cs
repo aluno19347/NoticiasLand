@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NoticiasLand.Models;
+using NoticiasLand.Models.Data;
 
 namespace NoticiasLand.Controllers
 {
@@ -25,12 +26,14 @@ namespace NoticiasLand.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { msg = "Categoria Inválida", type = NotificationType.Error });
             }
+
             Categorias categorias = db.Categorias.Find(id);
+
             if (categorias == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { msg = "A categoria submetida não existe.", type = NotificationType.Error });
             }
             return View(categorias);
         }
@@ -42,8 +45,6 @@ namespace NoticiasLand.Controllers
         }
 
         // POST: Categorias/Criar
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Criar([Bind(Include = "CategoriaID,Nome,UrlSlug")] Categorias categorias)
@@ -52,7 +53,7 @@ namespace NoticiasLand.Controllers
             {
                 db.Categorias.Add(categorias);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { msg = "Categoria criada com sucesso.", type = NotificationType.Success });
             }
 
             return View(categorias);
@@ -63,19 +64,17 @@ namespace NoticiasLand.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { msg = "Categoria Inválida", type = NotificationType.Error });
             }
             Categorias categorias = db.Categorias.Find(id);
             if (categorias == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { msg = "A categoria submetida não existe.", type = NotificationType.Error });
             }
             return View(categorias);
         }
 
         // POST: Categorias/Editar/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "CategoriaID,Nome,UrlSlug")] Categorias categorias)
@@ -84,7 +83,7 @@ namespace NoticiasLand.Controllers
             {
                 db.Entry(categorias).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { msg = "Categoria editada com sucesso.", type = NotificationType.Success });
             }
             return View(categorias);
         }
@@ -99,7 +98,7 @@ namespace NoticiasLand.Controllers
             Categorias categorias = db.Categorias.Find(id);
             if (categorias == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { msg = "A categoria submetida não existe.", type = NotificationType.Error });
             }
             return View(categorias);
         }

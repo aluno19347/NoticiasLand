@@ -23,8 +23,10 @@ namespace NoticiasLand.Models
         [Required(ErrorMessage = "O {0} é necessário.")]
         [Index(IsUnique = true)]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "O {0} tem de ter no mínimo {2} e no máximo {1}.")]
-        [RegularExpression("^[a-z][-a-z0-9]*",
- ErrorMessage = "O {0} começa, obrigatoriamente, por uma letra, só são permitidas letras minúsculas, números e hífens.")]
+        [   
+            RegularExpression("^[a-z][-a-z0-9]*",
+            ErrorMessage = "O {0} começa, obrigatoriamente, por uma letra, só são permitidas letras minúsculas, números e hífens.")
+        ]
         public virtual string UrlSlug { get; set; }
 
         public ICollection<Noticias> ListaDeNoticias { get; set; } // muitos para muitos
@@ -32,6 +34,17 @@ namespace NoticiasLand.Models
         public Tags()
         {
             ListaDeNoticias = new HashSet<Noticias>();
+        }
+
+        public bool ValidaTag()
+        {
+            if(TagID % 2 == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
         }
     }
 }
