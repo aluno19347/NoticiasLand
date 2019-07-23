@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "News";
+}
+@{ var count = 0; }
+
+<div class="jumbotron">
+    <h1>NoticiasLand</h1>
+    <p class="lead">Noticias à sua medida, ao minuto.</p>
+</div>
+@if (ViewBag.Error != null)
+{
+    <h1>@ViewBag.Error</h1>
+}
+else
+{
+    <span></span>
+}
+
+@if (ViewBag.isPublisher == "Yes")
+{
+    <button class="btn btn-default pull-right">
+        @Html.ActionLink("Create Publication", "Create", "News", routeValues: null, htmlAttributes: new { id = "newscreationLink" })
+    </button>
+    <br />
+    <hr />
+}
+else
+{
+    <p class="help-block pull-right">You need to be a publisher, to publish news.</p>
+    <br />
+    <hr />
+}
+
+@if (Model.Count > 0)
+{
+    <div class="container" style="width:100%">
+        @foreach (var news in Model)
+        {
+            string[] text = news.Text.Split('.');
+
+            <div class="row">
+                <div class="col-md-12">
+                    <span style="text-align:justify; word-wrap:break-word;font-size:26px;">@news.Title</span> /
+                    <span>@news.Publisher</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="row">
+                        @Html.Action("IndexPositive", "Votes", new { news = news })
+                    </div>
+                    <div class="row" style="margin-top:7px;margin-bottom:5px;">
+                        @if (news.Votes > 0 || news.Votes != null)
+                        {
+                            <span class="pull-right">@news.Votes</span>
+                        }
+                    </div>
+                    <div class="row">
+                        @Html.Action("IndexNegative", "Votes", new { news = news })
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <br />
+                    @foreach (var item in text)
+                    {
+                        count = count + 1;
+                        if (count <= 2)
+                        {
+                            <p>@item .</p>
+                        }
+                    }
+                </div>
+                <div class="col-md-12">
+                    <button class="btn btn-default btn-xs pull-right">
+                        @Html.ActionLink("More...", "Details",
+            "News", new { id = news.Id }, null)
+                    </button>
+                </div>
+            </div>
+            <hr />
+        }
+    </div>
+}
+else
+{
+    <div class="col-md-8">
+        <h3 class="pull-right">There are no News at this moment.</h3>
+    </div>
+        <br />
+        <br />
+    <br />
+    <hr />
+
+}

@@ -1,0 +1,66 @@
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Security.Claims;
+using System.Threading.Tasks;
+
+namespace NoticiasLand.Models
+{
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    public class ApplicationUser : IdentityUser
+    {
+        [Column(TypeName = "DateTime2")]
+        public DateTime BirthDate { get; set; }
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+    }
+
+
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public DbSet<CommentsModel> Comments { get; set; }
+        public DbSet<CommentsNews> CommentsNews { get; set; }
+        public DbSet<NewsModels> News { get; set; }
+        public DbSet<VotesModels> Votes { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<CommentsModel>()
+        //        .Property(e => e.Text)
+        //        .IsUnicode(false);
+
+        //    modelBuilder.Entity<CommentsModel>()
+        //        .HasMany(e => e.News)
+        //        .WithMany(e => e.Comments)
+        //        .Map(m => m.ToTable("CommentsNews").MapLeftKey("CommentId").MapRightKey("NewsId"));
+
+        //    modelBuilder.Entity<NewsModel>()
+        //        .Property(e => e.Text)
+        //        .IsUnicode(false);
+
+        //    modelBuilder.Entity<NewsModel>()
+        //        .HasMany(e => e.NewsVoteUsers)
+        //        .WithRequired(e => e.News)
+        //        .HasForeignKey(e => e.IdNews)
+        //        .WillCascadeOnDelete(false);
+        //}
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        }
+
+    }
+}

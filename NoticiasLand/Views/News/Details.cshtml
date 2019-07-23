@@ -1,0 +1,71 @@
+﻿﻿@model NNoticiasLandModels.NewsModels
+@using Microsoft.AspNet.Identity
+
+
+@{var title = Model.Title;}
+@{
+    ViewBag.Title = title;
+}
+<div class="row">
+    <div class="col-md-6">
+        <span style="font-size:22px">@title</span>
+        <hr />
+    </div>
+    @if (Model.Publisher == User.Identity.Name)
+    {
+        <div class="col-md-6 pull-right">
+            <div>
+                @Html.ActionLink("Delete", "Delete",
+            "News", new { id = Model.Id }, new { @class = "btn btn-default pull-right" })
+            </div>
+            <div>
+                @Html.ActionLink("Edit", "Edit",
+                "News", new { id = Model.Id }, new { @class = "btn btn-default pull-right"})
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-md-1">
+        <div class="row">
+            @Html.Action("IndexPositive", "Votes", new { news = Model })
+        </div>
+        <div class="row" style="margin-top:7px;margin-bottom:5px;">
+            @if (Model.Votes > 0)
+            {
+                <span class="pull-right">@Model.Votes</span>
+            }
+            else
+            {
+                <span class="pull-right" style="font-weight:bold; text-align:center;">0</span>
+            }
+        </div>
+        <div class="row">
+            @Html.Action("IndexNegative", "Votes", new { news = Model })
+        </div>
+    </div>
+
+    <div class="col-md-11">
+        @Model.Text
+    </div>
+</div>
+<br />
+<div class="row pull-right">
+    <div class="col-md-12">
+        <span>Publisher:</span>
+        <span style="font-size:18px;">@Model.Publisher</span>
+    </div>
+</div>
+@Html.Action("Index", "Comments")
+
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.Action("Create", "Comments")
+}
+else
+{
+    <span>You need to Login/Register as a User to Comment News</span>
+}
+
+

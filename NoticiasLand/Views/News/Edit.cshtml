@@ -1,0 +1,54 @@
+﻿@model NoticiasLand.Models.NewsModels
+
+@{var title = Model.Title;}
+@{
+    ViewBag.Title = title;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <span style="font-size:22px">Edit  - @title</span>
+        <hr />
+    </div>
+</div>
+
+@if (User.IsInRole("Publisher") || User.IsInRole("Admin"))
+{
+    using (Html.BeginForm("Edit", "News", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <br />
+        <br />
+        <div class="form-group" style="height:200px;">
+            <span class="col-md-2 control-label">News Text</span>
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @style = "min-width: 80%; resize:none; min-height:200px;" })
+            </div>
+        </div>
+        <div class="row" style="margin-top:30px;">
+            <div class="form-group">
+                <div class="col-md-7 pull-right">
+                    <input type="submit" class="btn btn-default btn-lg" value="Edit News" />
+                </div>
+            </div>
+        </div>
+            <br />
+            <hr />
+    }
+}
+else
+{
+    <h2>You need to be role Publisher or higher to be able to Edit News.</h2>
+    <hr />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,29 @@
+﻿@model NoticiasLand.Models.NewsModels
+@{
+    var urlPath = HttpContext.Current.Request.Url.AbsolutePath;
+    var lastUrl = urlPath.Split('/').Last();
+}
+
+
+@if (lastUrl == "Index" || lastUrl == "News" || lastUrl == "")
+{
+    using (Html.BeginForm("NegativeVoteIndex", "Votes", new { id = Model.Id }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => Model.Id)
+        <button type="submit" class="btn btn-default btn-sm pull-right" aria-label="DownVote">
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+        </button>
+    }
+}
+else
+{
+    using (Html.BeginForm("NegativeVoteDetails", "Votes", new { id = Convert.ToInt32(lastUrl) }, FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <button type="submit" class="btn btn-default btn-sm pull-right" aria-label="DownVote">
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+        </button>
+    }
+}

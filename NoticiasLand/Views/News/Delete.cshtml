@@ -1,0 +1,46 @@
+﻿﻿@model NNoticiasLandModels.NewsModels
+
+
+@{var title = Model.Title;}
+@{
+    ViewBag.Title = title;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <span style="font-size:22px">Delete  - @title</span>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Model.Text
+    </div>
+</div>
+<div class="row pull-right">
+    <div class="col-md-12">
+        <span>Publisher:</span>
+        <span>@Model.Publisher</span>
+    </div>
+</div>
+<hr />
+<div class="row">
+    @using (Html.BeginForm("Delete", "News", new { id = Model.Id }, FormMethod.Post, new { role = "form" }))
+    {
+    @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Publisher, new { })
+        @Html.HiddenFor(m => m.Text, new { @Value = User.Identity.Name })
+        @Html.HiddenFor(m => m.Title, new { })
+        @Html.HiddenFor(m => m.Id, new { })
+
+        <div class="form-group">
+            <div class="col-md-7 pull-right">
+                <input type="submit" class="btn btn-default  btn-lg" value="Delete News" onclick="return confirm('Are you sure you want to delete this publication?')"/>
+            </div>
+        </div>
+    }
+    <br />
+    <br />
+    @Html.Action("Index", "Comments")
+</div>
+

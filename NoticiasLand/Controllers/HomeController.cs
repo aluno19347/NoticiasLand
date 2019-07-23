@@ -9,12 +9,17 @@ namespace NoticiasLand.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index() {             
-            return View();
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult Index()
+        {
+            return View(db.News.ToList());
         }
 
         public ActionResult About()
         {
+            ViewBag.Message = "Your application description page.";
+
             return View();
         }
 

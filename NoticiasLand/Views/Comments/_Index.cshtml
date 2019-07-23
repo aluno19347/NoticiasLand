@@ -1,0 +1,58 @@
+﻿
+@{var urlPath = HttpContext.Current.Request.Url.AbsolutePath; }
+@{ var counter = 0;}
+
+<div class="row">
+    <br />
+    <hr />
+    @foreach (var comments in Model)
+    {
+
+        if (@comments.NewsId == Convert.ToInt32(urlPath.Split('/').Last()))
+        {
+            <div class="container" id="container @comments.Id">
+                <div class="row">
+                    <div class="col-md-12"><span class="pull-right" style="font-size:18px;">@comments.UserName</span></div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="alert-info" width="100%" style="border: 1px solid black; border-radius:4px; padding:3px; color:black;">
+                            @comments.Text
+                        </div>
+                    </div>
+                    <div class="col-md-2 pull-right">
+                        @if (comments.UserName == User.Identity.Name) {
+                        <div>
+                            @Html.Action("Delete", "Comments", new { id = comments.Id })
+                        </div>
+                        <div>
+                            @Html.ActionLink("Edit", "Edit",
+                                  "Comments", new { id = comments.Id }, new { @class = "btn btn-default btn-xs pull-right", @id = "Edit" + comments.Id })
+                        </div>
+                                }
+                    </div>
+                </div>
+                @{counter = counter + 1;}
+                @if (@counter > 0)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr style="width:75%" />
+                        </div>
+                    </div>
+                }
+            </div>
+                        }
+                    }
+
+    @if (@counter < 1)
+    {
+        <h6> There are no comments on this publication.Be the first to comment down bellow.</h6>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
