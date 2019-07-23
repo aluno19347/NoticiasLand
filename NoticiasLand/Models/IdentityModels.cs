@@ -35,28 +35,6 @@ namespace NoticiasLand.Models
         public DbSet<NewsModels> News { get; set; }
         public DbSet<VotesModels> Votes { get; set; }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<CommentsModel>()
-        //        .Property(e => e.Text)
-        //        .IsUnicode(false);
-
-        //    modelBuilder.Entity<CommentsModel>()
-        //        .HasMany(e => e.News)
-        //        .WithMany(e => e.Comments)
-        //        .Map(m => m.ToTable("CommentsNews").MapLeftKey("CommentId").MapRightKey("NewsId"));
-
-        //    modelBuilder.Entity<NewsModel>()
-        //        .Property(e => e.Text)
-        //        .IsUnicode(false);
-
-        //    modelBuilder.Entity<NewsModel>()
-        //        .HasMany(e => e.NewsVoteUsers)
-        //        .WithRequired(e => e.News)
-        //        .HasForeignKey(e => e.IdNews)
-        //        .WillCascadeOnDelete(false);
-        //}
-
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

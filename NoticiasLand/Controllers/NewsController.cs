@@ -119,11 +119,13 @@ namespace NoticiasLand.Controllers
                     {
                         var user = User.Identity.Name;
 
-                        NewsModels news = new NewsModels();
-                        news.Id = model.Id;
-                        news.Title = model.Title;
-                        news.Text = model.Text;
-                        news.Publisher = User.Identity.Name;
+                        NewsModels news = new NewsModels
+                        {
+                            Id = model.Id,
+                            Title = model.Title,
+                            Text = model.Text,
+                            Publisher = User.Identity.Name
+                        };
 
                         db.Entry(news).State = EntityState.Modified;
 

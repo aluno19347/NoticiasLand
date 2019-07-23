@@ -38,14 +38,13 @@ namespace NoticiasLand
                 roleManager.Create(role);
 
                 //Here we create a Admin super user who will maintain the website                                  
-
                 ApplicationUser user = new ApplicationUser
                 {
-                    UserName = "admin",
+                    UserName = "administrator",
                     Email = "admin@email.com",
                     BirthDate = DateTime.Now
                 };
-                string userPWD = "admin";
+                string userPWD = "administrator";
 
                 var chkUser = UserManager.Create(user, userPWD);
 

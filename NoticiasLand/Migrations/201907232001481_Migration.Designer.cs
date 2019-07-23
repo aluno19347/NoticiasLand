@@ -7,13 +7,13 @@ namespace NoticiasLand.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class MigrationV1 : IMigrationMetadata
+    public sealed partial class Migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(MigrationV1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707111930053_MigrationV1"; }
+            get { return "201907232001481_Migration"; }
         }
         
         string IMigrationMetadata.Source
